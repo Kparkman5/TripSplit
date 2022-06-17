@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="TripSplit.css">
+	<script  src="TripSplit.js" async></script>
+	<title>Trip Split</title>
+</head>
+<body>
+	<h1 class="title">
+		TRIP SPLIT
+	</h1>
+	<div class="user_names">
+		<button class="user user1">Kyle</button>
+		<button class="user user2">Amra</button>
+		<button class="user user3">Chris</button>
+		<button class="user user4">Ib</button>
+	</div>
+	<div class="charge_buttons">
+		<button class="charge_button" id="group_charge_button">Charge Group</button>
+		<input type="number" class="group_charge_amount" id="group_charge_amount" name="group_charge_amount" value="">
+		<button class="charge_button">Charge Individual</button>
+	</div>
+	<br>
+	<div class="results_section">
+		<hr class="solid">
+		<b>Results</b>
+		<ul id="user1_owes" class="user_owes user1_owes">Kyle Owes:
+  			<li value ="0">Ib</li>
+  			<li>Amra $0 </li>
+ 			<li>Chris $0 </li>
+		</ul>
+		<ul id="user2_owes" class="user_owes user2_owes">Amra Owes:
+  			<li value ="0">Ib</li>
+  			<li id="owes_user1" value ="0">Kyle</li>
+ 			<li>Chris $0 </li>
+		</ul>
+		<ul id="user3_owes" class="user_owes user3_owes">Chris Owes:
+  			<li value ="0">Ib</li>
+  			<li id="owes_user1" value ="0">Kyle</li>
+  			<li>Amra $0 </li>
+		</ul>
+		<ul id="user4_owes" class="user_owes user4_owes">Ib Owes:
+  			<li>Amra $0 </li>
+  			<li id="owes_user1" value ="0">Kyle</li>
+ 			<li>Chris $0 </li>
+		</ul>
+	</div>
+</body>
+</html>
