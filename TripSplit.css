@@ -26,22 +26,48 @@
 	padding: 14px 40px;
 	background-color: white;
   	color: black;
+  	transition-duration: 0.4s;
 }
+
+.user_selected {
+	background-color: gold;
+}
+
 
 .user1 {
 	border: 4px solid #4CAF50;
+}
+
+.user1:hover {
+	background-color: #4CAF50;
+	color: white;
 }
 
 .user2 {
 	border: 4px solid #008CBA;
 }
 
+.user2:hover {
+	background-color: #008CBA;
+	color: white;
+}
+
 .user3 {
 	border: 4px solid #f44336;
 }
 
+.user3:hover {
+	background-color: #f44336;
+	color: white;
+}
+
 .user4 {
 	border: 4px solid #FF8C00;
+}
+
+.user4:hover {
+	background-color: #FF8C00;
+	color: white;
 }
 
 .add_user_section {

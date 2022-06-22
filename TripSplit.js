@@ -1,25 +1,37 @@
 var groupChargeButton = document.getElementById('group_charge_button')
 var addUserButton = document.getElementById('add_user_button')
 
-var numUsers = document.getElementsByClassName('user').length
 
 var userDictArray = [{}, {}, {}, {}]
+selectedUser = null
 
 
-
-assignDictionaries(numUsers)
+assignDictionaries(document.getElementsByClassName('user').length)
 
 
 groupChargeButton.addEventListener('click', function () {
+	if (selectedUser == null) {
+		console.log("Must select a user")
+		return
+	}
+	var numUsers = document.getElementsByClassName('user').length
+	if (numUsers < 2) {
+		console.log ("Must be 2 or more users.")
+		return
+	}
 	var total = document.getElementById('group_charge_amount').value
-	groupOwes = (total / document.getElementsByClassName('user').length)
+	groupOwes = (total / numUsers)
 	chargeGroup(groupOwes)
 	console.log(userDictArray)
+	userSelectedTrue(selectedUser)
 })
 
 addUserButton.addEventListener('click', function () {
 	var name = document.getElementById('add_user_input').value
 	addUser(name)
+	// console.log(document.getElementsByClassName("user"))
+	// const text = (userButtons)[document.getElementsByClassName('user').length -1].innerHTML
+
 })
 
 function getCurrUserNames() {
@@ -27,7 +39,6 @@ function getCurrUserNames() {
 	var userNames = []
 	for (var i = 0; i < currNumUsers; i++){
 		userName = document.getElementsByClassName("user")[i].textContent
-		console.log(document.getElementsByClassName("user")[i].textContent)
 		userNames.push(userName)
 	}
 	return userNames
@@ -45,15 +56,15 @@ function addUser(name) {
 	var btn = document.createElement("button")
 	var currNumUsers = document.getElementsByClassName('user').length
 	btn.classList.add("user")
+	btn.id = name + "_button"
+	btn.value = "false"
 	btn.classList.add("user" + (currNumUsers+1))
 	btn.innerHTML = name
 	document.getElementById('user_names').appendChild(btn)
+	btn.addEventListener('click', function () {
+		userClicked(btn.id)
+	})
 	addUserResultsInfo(name, currNumUsers+1)
-	// for (var i = 0; i < currNumUsers - 1; i++){
-	// 	var temp = getCurrUserNames()[i]
-	// 	var ul_id = document.getElementById(temp + "_owes")
-	// 	// addUserLi(ul_id, currNumUsers -1)
-	// }
 }
 
 function addUserResultsInfo(name, num) {
@@ -63,14 +74,12 @@ function addUserResultsInfo(name, num) {
 	ul.classList.add("user" + num + "_owes")
 	ul.innerHTML = name + " Owes:"
 	document.getElementById('results_section').appendChild(ul)
-	console.log(num)
 	userNames = getCurrUserNames()
 	addUserLi(ul.id, num)
 	for (var i = 0; i < num - 1; i++){
 		var temp = getCurrUserNames()[i]
-		console.log(document.getElementById(temp + "_owes"))
+//		console.log(document.getElementById(temp + "_owes"))
 		var tempLi = temp + "_owes"
-		console.log(num)
 		addUserLi(tempLi, num)
 	}
 
@@ -105,7 +114,6 @@ function assignDictionaries(numUsers) {
 
 	for (var i = 0; i < numUsers; i++){
 		temp = document.getElementsByClassName('user')[i].textContent
-		console.log(temp)
 		for (var j = 0; j < numUsers; j++){
 			temp2 = document.getElementsByClassName('user')[j].textContent
 			if (temp2 != temp){
@@ -114,32 +122,130 @@ function assignDictionaries(numUsers) {
 				} else {
 					userDictArray[i][temp2] += 0
 				}
-				console.log(userDictArray[i])
  			}
 		}
 	}
 }
 
-
-
 function chargeGroup(groupOwes){
 	num = document.getElementsByClassName('user').length
-	for (var i = 1; i < num; i++){
-		temp = document.getElementsByClassName('user')[0].textContent
-		userDictArray[i][temp] += groupOwes
-	}
-	for (var i = 1; i < num; i++){
+	index = parseInt(selectedUser.className.split(' ')[1].replace('user', '')) - 1
+	name = (selectedUser.textContent).toString()
+	for (var i = 0; i < num; i++){
 		temp = document.getElementsByClassName('user')[i].textContent
-		console.log(userDictArray[i] + i)
+		if ((i) == index) { 
+			console.log("Skipping this cause " + i + "   " + selectedUser.className)
+			continue
+		}
+		// console.log(userDictArray[i][name])
+		// console.log("temp = " + temp)
+		// console.log(userDictArray[index][name])
+		// owes = userDictArray[i][name] + groupOwes
+		userDictArray[i][name] += groupOwes
+	//	console.log(temp + " now owes " + name + " " + userDictArray[i][name])
+	//	console.log(i + " owes  " + index + " " + owes)
+
+	//	console.log(index + " owes  " + i + " " + userDictArray[index][temp])
+
+		// console.log(i + " owes  " + index + " " + (owes - userDictArray[index][temp]))
+
+		// console.log(index + " owes  " + i + " " + (userDictArray[index][temp] - owes))
+		// tempOwed = userDictArray[index][temp]
+		// console.log("tempOwed = " + tempOwed)
+		// console.log("owes = " + owes)
+		userDictArray[index][temp] = userDictArray[index][temp] - groupOwes
+		// console.log(name + " now owes " + temp + " " + userDictArray[index][temp])
+		// userDictArray[i][name] = owes - tempOwed // should be 20 - 0
+
 
 		for (var j = 0; j < num - 1; j++) {
 			var userLi = document.getElementById(temp + '_owes').querySelectorAll('li')[j]
-			console.log("here now " + j + " out of " + num + "  " + userLi)
-			if (userLi.id.includes('Kyle')) {
-				userLi.innerText = 'Kyle' + ' $' + userDictArray[i].Kyle.toFixed(2)
+			var owes = userDictArray[i][name].toFixed(2)
+			if (userLi.id.includes(name)) {
+				// userLi.innerText = name + ' $' + userDictArray[i][name].toFixed(2)
+				if (owes < 0){
+					userLi.innerText = name + ' $0.00' 
+				} else {
+					userLi.innerText = name + ' $' + owes
+				}
 			}
 		}
+
+
 	}
+
+	for (var i = 0; i < num - 1; i++) {
+		var selectedLi = document.getElementById(name + '_owes').querySelectorAll('li')[i]
+	//	selectedLi.innerText = name + ' $' + userDictArray[i][name].toFixed(2)
+		var tempName = selectedLi.id.replace('owes_', '')
+		console.log(selectedLi)
+		console.log(tempName)
+		var owes = userDictArray[index][tempName].toFixed(2)
+		console.log(owes)
+		if (owes < 0){
+			console.log("negative")
+			selectedLi.innerText = tempName + ' $0.00' 
+		} else {
+			selectedLi.innerText = tempName + ' $' + owes
+		}
+	}	
+
+	/*
+
+	for (var i = 0; i < num; i++){
+		temp = document.getElementsByClassName('user')[i].textContent
+		name = (selectedUser.textContent).toString()
+		index = parseInt(selectedUser.className.split(' ')[1].replace('user', '')) - 1
+		if ((i) == index) { 
+			console.log("Skipping this also cause " + i + "   " + selectedUser.className)
+			continue
+		}
+	
+		for (var j = 0; j < num - 1; j++) {
+			var userLi = document.getElementById(temp + '_owes').querySelectorAll('li')[j]
+			console.log(temp + "  " + userLi.id)
+			if (userLi.id.includes(name)) {
+				console.log("includes " + name + " " + i)
+				console.log(userDictArray[i][name])
+				console.log(userDictArray[index][temp])
+				// owes = (userDictArray[i][name] - userDictArray[index][temp])
+				userLi.innerText = selectedUser.textContent + ' $' + userDictArray[i][name].toFixed(2)
+			}
+		}
+	} */
+}
+
+function userClicked(id) {
+	element = document.getElementById(id)
+	name = element.innerText
+	// console.log(element.value)
+	if (element.value == "true") {
+		userSelectedTrue(element)
+		return
+	}
+	if (selectedUser != null) {
+	//	console.log("User already selected")
+	//	console.log(selectedUser)
+		return
+	}
+	userSelectedFalse(element)
+}
+
+function userSelectedTrue(element) {
+//	console.log("Here in true")
+	element.classList.remove("user_selected")
+	element.value = false
+	selectedUser = null
+	console.log(selectedUser)
+}
+
+function userSelectedFalse(element) {
+//	console.log("Here in false")
+	element.classList.add("user_selected")
+	element.value = "true"
+	selectedUser = element
+//	console.log(selectedUser)
+//	console.log(parseInt(selectedUser.className.split(' ')[1].replace('user', '')))
 }
 
 
