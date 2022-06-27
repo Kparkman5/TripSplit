@@ -189,30 +189,6 @@ function chargeGroup(groupOwes){
 			selectedLi.innerText = tempName + ' $' + owes
 		}
 	}	
-
-	/*
-
-	for (var i = 0; i < num; i++){
-		temp = document.getElementsByClassName('user')[i].textContent
-		name = (selectedUser.textContent).toString()
-		index = parseInt(selectedUser.className.split(' ')[1].replace('user', '')) - 1
-		if ((i) == index) { 
-			console.log("Skipping this also cause " + i + "   " + selectedUser.className)
-			continue
-		}
-	
-		for (var j = 0; j < num - 1; j++) {
-			var userLi = document.getElementById(temp + '_owes').querySelectorAll('li')[j]
-			console.log(temp + "  " + userLi.id)
-			if (userLi.id.includes(name)) {
-				console.log("includes " + name + " " + i)
-				console.log(userDictArray[i][name])
-				console.log(userDictArray[index][temp])
-				// owes = (userDictArray[i][name] - userDictArray[index][temp])
-				userLi.innerText = selectedUser.textContent + ' $' + userDictArray[i][name].toFixed(2)
-			}
-		}
-	} */
 }
 
 function userClicked(id) {
@@ -224,8 +200,6 @@ function userClicked(id) {
 		return
 	}
 	if (selectedUser != null) {
-	//	console.log("User already selected")
-	//	console.log(selectedUser)
 		return
 	}
 	userSelectedFalse(element)
@@ -240,12 +214,9 @@ function userSelectedTrue(element) {
 }
 
 function userSelectedFalse(element) {
-//	console.log("Here in false")
 	element.classList.add("user_selected")
 	element.value = "true"
 	selectedUser = element
-//	console.log(selectedUser)
-//	console.log(parseInt(selectedUser.className.split(' ')[1].replace('user', '')))
 }
 
 
