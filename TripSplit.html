@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="TripSplit.css">
+	<script  src="TripSplit.js" async></script>
+	<title>Trip Split | Trip Page</title>
+</head>
+<body id="trip_page">
+	<ul>
+		<li>
+			<a href="homePage.html">Home Page</a>
+		</li>
+		<li>
+			<button class="save_trip_button">Save Trip</button>
+		</li>
+	</ul>
+	<h1 class="title">
+		TRIP SPLIT
+	</h1>
+	<div id="user_names" class="user_names">
+		<!-- <button class="user user1">Kyle</button> -->
+	</div>
+	<div class="charge_buttons">
+		<button class="charge_button" id="group_charge_button">Charge Group</button>
+		<input type="number" class="group_charge_amount" id="group_charge_amount" name="group_charge_amount" value="">
+		<button class="charge_button" id="charge_individual_button">Charge Individual(s)</button>
+		<input type="number" class="individual_charge_amount" id="individual_charge_amount" name="individual_charge_amount" value="">
+		<button class="charge_button confirm_charge" id="confirm_charge">+</button>
+		<div class="users_to_be_charged" id="users_to_be_charged"></div>
+	</div>
+	<div class="add_user_section">
+		<button class="add_user_button" id="add_user_button">Add User</button>
+		<input type="text" class="add_user_input" id="add_user_input" name="add_user_input">
+	</div>
+	<br>
+	<div id="results_section" class="results_section">
+		<hr class="solid">
+		<b>Results</b>
+		<!-- <ul id="Kyle_owes" class="user_owes user1_owes">Kyle Owes: -->
+  			<!-- <li id="owes_Ib" value ="0">Ib</li> -->
+  			<!-- <li id="owes_Chris" value ="0">Amra</li> -->
+ 			<!-- <li id="owes_Chris" value ="0">Chris</li> -->
+		<!-- </ul> -->
+	</div>
+</body>
+</html>
